@@ -1,0 +1,39 @@
+- hosts: all
+  user: "{{ deploy_user }}"
+  become: yes
+  tasks:
+
+  - name: Install packages
+    apt:
+      name: "{{ default_packages }}"
+
+- hosts: all
+  user: "{{ deploy_user }}"
+  tasks:
+
+  - name: Create a virtual environment
+    command: python3 -m venv "{{ install_path }}env" creates="{{ install_path }}env"
+
+  - name: install jupyter
+    pip:
+      name: "jupyter"
+      virtualenv: "{{ install_path }}/env"
+
+  - name: create jupyter directory
+    file:
+      path: "{{ install_path }}.jupyter/"
+      state: directory
+
+  - name: Copy jupyter server config
+    template: src=jupyter_notebook_config.py dest="{{ install_path }}.jupyter/jupyter_notebook_config.py"
+
+- hosts: all
+  user: "{{ deploy_user }}"
+  become: yes
+  tasks:
+
+  - name: Copy systemd script
+    template: src=jupyter.service.j2 dest=/lib/systemd/system/jupyterserver.service mode=0644
+
+  - name: jupyterserver
+    service: name=jupyterserver state=started enabled=yes

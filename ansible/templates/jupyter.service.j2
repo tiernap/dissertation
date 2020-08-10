@@ -1,0 +1,12 @@
+[Unit]
+Description=Jupyter Server
+
+[Service]
+User={{ deploy_user }}
+WorkingDirectory={{ install_path }}
+ExecStart={{ install_path }}/env/bin/jupyter notebook
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
