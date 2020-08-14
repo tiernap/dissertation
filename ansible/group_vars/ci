@@ -1,0 +1,3 @@
+---
+install_path: "/home/{{ deploy_user }}/"
+deploy_user: "{{ lookup('env','USER') }}"

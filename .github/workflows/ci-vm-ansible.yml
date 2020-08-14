@@ -1,0 +1,28 @@
+# This is workflow to build and test ansible in VM environment
+
+name: ci-vm-ansible
+
+
+on: [push]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Run Ansible Playbook
+      run: ansible-playbook -i .github/workflows/hosts.ini ansible/site.yml
+
+    - name: Wait for port
+      run: sleep 3
+
+    - name: Check running instance
+      run:  ~/env/bin/jupyter-notebook list | grep localhost
+
+    - name: Test application port
+      run: curl --connect-timeout 3 -I localhost:8888
