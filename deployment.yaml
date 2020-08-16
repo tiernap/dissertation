@@ -15,5 +15,7 @@ spec:
       containers:
       - name: jupyter
         image: jupyter/base-notebook:notebook-6.0.3
+        command: ["start-notebook.sh"]
+        args: ["--NotebookApp.password=''", "--NotebookApp.token=''"]
         ports:
         - containerPort: 8888
