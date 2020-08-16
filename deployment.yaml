@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: jupyter
-        image: jupyter/base-notebook
+        image: jupyter/base-notebook:notebook-6.0.3
         ports:
         - containerPort: 8888
