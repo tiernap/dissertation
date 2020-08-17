@@ -17,6 +17,7 @@
   - name: install jupyter
     pip:
       name: "jupyter"
+      version: "(( jupyter_version ))"
       virtualenv: "{{ install_path }}/env"
 
   - name: create jupyter directory
