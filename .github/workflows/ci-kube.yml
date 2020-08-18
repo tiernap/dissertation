@@ -22,6 +22,8 @@ jobs:
         run: kubectl apply -f deployment.yaml
       - name: Apply service
         run: kubectl apply -f jupyter-svc.yaml
-  #    - name: Test Service
-  #      run: curl --connect-timeout 3 -I $(minikube service jupyter --url)
+      - name: Wait for service
+        run: sleep 45
+      - name: Test Service
+        run: curl --connect-timeout 3 -I $(minikube service jupyter --url)
         
