@@ -21,3 +21,15 @@ spec:
         args: ["--NotebookApp.password=''", "--NotebookApp.token=''"]
         ports:
         - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyter
+spec:
+  ports:
+  - port: 8888
+    protocol: TCP
+  selector:
+    app: jupyter
+  type: LoadBalancer  
