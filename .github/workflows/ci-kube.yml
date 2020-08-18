@@ -19,11 +19,11 @@ jobs:
       - name: Interact with the cluster
         run: kubectl get nodes
       - name: Apply deployment
-        run: kubectl apply -f deployment.yaml
-      - name: Apply service
-        run: kubectl apply -f jupyter-svc.yaml
+        run: kubectl apply -f kube-deploy.yaml
       - name: Wait for service
         run: sleep 45
+      - name: Test Deployment
+        run: kubectl rollout status deployment jupyter
       - name: Test Service
         run: curl --connect-timeout 3 -I $(minikube service jupyter --url)
         
