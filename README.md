@@ -37,8 +37,7 @@ Requirements:
 to create:
 
 ```
-kubectl apply -f deployment.yml
-kubectl apply -f jupyter-svc.yml
+kubectl apply -f kube-deploy.yaml
 ```
 
 To expose endpoint:
